@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.*
+!.env.example
+
+# Copias de seguranca locais
+backup-*/
+*.backup
+*.backup-*

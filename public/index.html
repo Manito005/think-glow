@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080807">
+  <meta name="description" content="THINK GLOW — moda, roupa e acessórios. Descobre o teu estilo.">
+  <title>THINK GLOW | Your Style. Your Glow.</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-checking">
+
+<header class="topbar">
+  <a class="logo" href="#" aria-label="THINK GLOW início">
+    <span class="logo-icon">✦</span>
+    THINK <span class="glow-text">GLOW</span>
+  </a>
+
+  <button id="menuBtn" class="icon-btn" aria-label="Abrir menu">☰</button>
+</header>
+
+<nav id="navMenu" class="nav-menu">
+  <a href="#inicio">Início</a>
+  <a href="#categorias">Categorias</a>
+  <a href="#produtos">Produtos</a>
+  <a href="#ajuda">Ajuda</a>
+  <button id="accountBtn" class="nav-account">A minha conta</button>
+</nav>
+
+<main>
+  <section class="hero" id="inicio">
+    <div class="hero-orb orb-one"></div>
+    <div class="hero-orb orb-two"></div>
+
+    <div class="hero-content">
+      <span class="eyebrow">✦ A TUA NOVA EXPERIÊNCIA DE MODA</span>
+      <h1>O teu estilo.<br>O teu <span class="gradient-text">brilho.</span></h1>
+      <p>Descobre roupas e acessórios que combinam contigo. O teu próximo estilo começa aqui.</p>
+      <a class="primary-btn" href="#produtos">Explorar coleção <span>→</span></a>
+      <div class="hero-note"><span class="live-dot"></span> NOVOS ESTILOS A CAMINHO</div>
+    </div>
+
+    <div class="hero-art" aria-label="Ilustração decorativa de moda">
+      <div class="art-ring ring-one"></div>
+      <div class="art-ring ring-two"></div>
+      <div class="fashion-card">
+        <div class="fashion-symbol">✦</div>
+        <div class="fashion-title">DEFINE<br>YOUR GLOW</div>
+        <div class="fashion-subtitle">STYLE WITHOUT LIMITS</div>
+        <div class="fashion-decoration">✳</div>
+      </div>
+      <span class="floating-star star-one">✦</span>
+      <span class="floating-star star-two">✧</span>
+      <span class="floating-star star-three">✳</span>
+    </div>
+  </section>
+
+  <section class="trust-row">
+    <div><span>✦</span> Estilo para todos</div>
+    <div><span>◇</span> Novas coleções</div>
+    <div><span>♡</span> Feito para ti</div>
+  </section>
+
+  <section class="section" id="categorias">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">ENCONTRA O TEU ESTILO</span>
+        <h2>Explora categorias</h2>
+      </div>
+    </div>
+
+    <div class="category-grid">
+      <button class="category-card cat-pink" data-category="Roupas">
+        <span class="category-symbol">♧</span>
+        <span>Roupas</span><small>Descobrir →</small>
+      </button>
+      <button class="category-card cat-blue" data-category="Calçado">
+        <span class="category-symbol">◇</span>
+        <span>Calçado</span><small>Descobrir →</small>
+      </button>
+      <button class="category-card cat-orange" data-category="Acessórios">
+        <span class="category-symbol">✧</span>
+        <span>Acessórios</span><small>Descobrir →</small>
+      </button>
+      <button class="category-card cat-green" data-category="Bolsas">
+        <span class="category-symbol">▱</span>
+        <span>Bolsas</span><small>Descobrir →</small>
+      </button>
+    </div>
+  </section>
+
+  <section class="section products-section" id="produtos">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">ESCOLHAS THINK GLOW</span>
+        <h2>Descobre os artigos</h2>
+      </div>
+      <span class="product-count" id="productCount">4 artigos</span>
+    </div>
+
+    <label class="search-box">
+      <span>⌕</span>
+      <input id="searchInput" type="search" placeholder="Pesquisar roupa, calçado, acessórios...">
+    </label>
+
+    <div class="filter-row" id="filters">
+      <button class="filter-btn active" data-filter="Todos">Todos</button>
+      <button class="filter-btn" data-filter="Roupas">Roupas</button>
+      <button class="filter-btn" data-filter="Calçado">Calçado</button>
+      <button class="filter-btn" data-filter="Acessórios">Acessórios</button>
+      <button class="filter-btn" data-filter="Bolsas">Bolsas</button>
+    </div>
+
+    <div id="productGrid" class="product-grid"></div>
+    <p id="emptyMessage" class="empty-message" hidden>Não encontrámos artigos com essa pesquisa.</p>
+  </section>
+
+  <section class="promo-banner">
+    <div class="promo-shape">✳</div>
+    <span class="eyebrow">O TEU ESTILO, AS TUAS REGRAS</span>
+    <h2>Brilha à tua maneira.</h2>
+    <p>Estamos a preparar uma experiência de compras especial para ti.</p>
+    <a href="#produtos" class="secondary-btn">Ver coleção →</a>
+  </section>
+
+  <section class="help-section" id="ajuda">
+    <span class="eyebrow">ESTAMOS AQUI PARA TI</span>
+    <h2>Precisas de ajuda?</h2>
+    <p>O nosso assistente pode orientar-te sobre como comprar, encontrar artigos e utilizar a loja.</p>
+    <button class="primary-btn" id="helpBtn">Consultar assistente ✦</button>
+    <div id="helpPanel" class="help-panel" hidden>
+      <h3>Glow Assistant ✦</h3>
+      <p>Olá! Em que podemos ajudar?</p>
+      <button class="help-question" data-answer="Escolhe um artigo, adiciona-o ao carrinho e revê a tua seleção no botão do carrinho.">Como faço uma compra?</button>
+      <button class="help-question" data-answer="Nesta primeira versão, os artigos são demonstrativos. Os pagamentos reais serão adicionados após configurarmos o sistema de encomendas e o fornecedor de pagamentos.">Como posso pagar?</button>
+      <button class="help-question" data-answer="A área de conta e o suporte personalizado serão ligados nas próximas etapas do desenvolvimento.">Como entro na minha conta?</button>
+      <p id="helpAnswer" class="help-answer" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <a class="logo" href="#inicio">✦ THINK <span class="glow-text">GLOW</span></a>
+  <p>Your Style. Your Glow.</p>
+  <p class="footer-small">Uma nova forma de descobrir o teu estilo.</p>
+  <p class="copyright">© <span id="year"></span> THINK GLOW</p>
+</footer>
+
+<button id="cartFab" class="cart-fab" aria-label="Abrir carrinho">
+  🛍️ <span>Carrinho</span> <b id="cartCount">0</b>
+</button>
+
+<div id="cartModal" class="modal" hidden>
+  <div class="modal-backdrop" id="closeCartBackdrop"></div>
+  <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="modal-heading">
+      <h2 id="cartTitle">O teu carrinho</h2>
+      <button id="closeCart" class="icon-btn" aria-label="Fechar carrinho">✕</button>
+    </div>
+    <div id="cartItems"></div>
+    <div class="cart-total"><span>Total demonstrativo</span><strong id="cartTotal">0 MT</strong></div>
+    <p class="cart-disclaimer">Demonstração: os artigos e preços são exemplos. Ainda não são encomendas reais.</p>
+    <button id="checkoutBtn" class="primary-btn checkout-btn">Continuar</button>
+  </section>
+</div>
+
+
+<div id="accountModal" class="modal" hidden>
+  <div class="modal-backdrop" id="accountBackdrop"></div>
+  <section class="modal-card account-card" role="dialog"
+    aria-modal="true" aria-labelledby="accountTitle">
+
+    <div class="luxury-auth-brand">
+      <div class="luxury-brand-symbol">✦</div>
+      <p class="luxury-brand-name">THINK <span>GLOW</span></p>
+      <div class="luxury-brand-line"></div>
+      <p class="luxury-brand-tagline">YOUR STYLE. YOUR GLOW.</p>
+      <p class="luxury-welcome">O teu próximo capítulo começa aqui.</p>
+    </div>
+
+    <div class="modal-heading">
+      <h2 id="accountTitle">A minha conta</h2>
+      <button id="closeAccount" class="icon-btn"
+        type="button" aria-label="Fechar conta">✕</button>
+    </div>
+
+    <div id="accountForms">
+      <div class="account-tabs">
+        <button id="showLogin" class="filter-btn active" type="button">
+          Iniciar sessão
+        </button>
+        <button id="showRegister" class="filter-btn" type="button">
+          Criar conta
+        </button>
+      </div>
+
+      <form id="loginForm">
+        <label for="loginEmail">Email</label>
+        <input id="loginEmail" type="email" autocomplete="email"
+          placeholder="teu@email.com" required>
+
+        <label for="loginPassword">Palavra-passe</label>
+        <input id="loginPassword" type="password"
+          autocomplete="current-password" required>
+
+        <button class="primary-btn account-submit" type="submit">
+          Iniciar sessão
+        </button>
+      </form>
+
+      <form id="registerForm" hidden>
+        <label for="registerEmail">Email</label>
+        <input id="registerEmail" type="email" autocomplete="email"
+          placeholder="teu@email.com" required>
+
+        <label for="registerPassword">Criar palavra-passe</label>
+        <input id="registerPassword" type="password"
+          autocomplete="new-password" minlength="8" required>
+
+        <small>Usa pelo menos 8 caracteres.</small>
+
+        <button class="primary-btn account-submit" type="submit">
+          Criar conta
+        </button>
+      </form>
+    </div>
+
+    <div id="accountProfile" hidden>
+      <p>Conta autenticada:</p>
+      <p id="accountUserEmail"></p>
+      <button id="logoutBtn" class="primary-btn account-submit"
+        type="button">Terminar sessão</button>
+    </div>
+
+    <p id="accountMessage" class="help-answer" role="status"
+      aria-live="polite"></p>
+  </section>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="js/app.js"></script>
+<script src="js/product-details.js"></script>
+<script src="js/account.js"></script>
+</body>
+</html>
