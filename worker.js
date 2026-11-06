@@ -105,7 +105,10 @@ async function handleAuth(request, env, path) {
 
     const { data, error } = await supabase.auth.signUp({
       email: email.trim(),
-      password
+      password,
+      options: {
+        emailRedirectTo: new URL('/', request.url).origin
+      }
     });
 
     if (error) {
@@ -153,6 +156,144 @@ async function handleAuth(request, env, path) {
       success: true,
       user: safeUser(data.user)
     }, 200, sessionCookies(data.session));
+  }
+
+
+  // Enviar email de recuperação de palavra-passe.
+  if (path === '/api/auth/recover' && request.method === 'POST') {
+    const body = await readBody(request);
+    const email = body?.email;
+
+    if (typeof email !== 'string' || !email.trim()) {
+      return json({ success: false, message: 'Indica o teu email.' }, 400);
+    }
+
+    const origin = new URL(request.url).origin;
+    const { error } = await supabase.auth.resetPasswordForEmail(
+      email.trim(),
+      { redirectTo: `${origin}/?auth=recovery` }
+    );
+
+    if (error) {
+      return json({
+        success: false,
+        message: 'Não foi possível enviar o email. Tenta novamente mais tarde.'
+      }, 400);
+    }
+
+    return json({
+      success: true,
+      message: 'Se existir uma conta com esse email, receberás instruções para recuperar o acesso.'
+    });
+  }
+
+  // Reenviar confirmação de registo.
+  if (path === '/api/auth/resend-confirmation' && request.method === 'POST') {
+    const body = await readBody(request);
+    const email = body?.email;
+
+    if (typeof email !== 'string' || !email.trim()) {
+      return json({ success: false, message: 'Indica o teu email.' }, 400);
+    }
+
+    const origin = new URL(request.url).origin;
+    const { error } = await supabase.auth.resend({
+      type: 'signup',
+      email: email.trim(),
+      options: { emailRedirectTo: origin }
+    });
+
+    if (error) {
+      return json({
+        success: false,
+        message: 'Não foi possível reenviar. Verifica o email ou tenta mais tarde.'
+      }, 400);
+    }
+
+    return json({
+      success: true,
+      message: 'Se a confirmação ainda estiver pendente, será enviado um novo email.'
+    });
+  }
+
+  // Validar os tokens recebidos no link de recuperação e criar cookies seguros.
+  if (path === '/api/auth/recovery-session' && request.method === 'POST') {
+    const body = await readBody(request);
+    const access_token = body?.access_token;
+    const refresh_token = body?.refresh_token;
+
+    if (
+      typeof access_token !== 'string' ||
+      typeof refresh_token !== 'string' ||
+      !access_token ||
+      !refresh_token
+    ) {
+      return json({ success: false, message: 'Link de recuperação inválido.' }, 400);
+    }
+
+    const { data: sessionData, error: sessionError } =
+      await supabase.auth.setSession({ access_token, refresh_token });
+
+    if (sessionError || !sessionData.session) {
+      return json({
+        success: false,
+        message: 'O link expirou ou já não é válido. Solicita outro email.'
+      }, 401);
+    }
+
+    const { data, error } = await supabase.auth.getUser();
+
+    if (error || !data.user) {
+      return json({ success: false, message: 'Não foi possível validar o link.' }, 401);
+    }
+
+    return json({
+      success: true,
+      user: safeUser(data.user)
+    }, 200, sessionCookies(sessionData.session));
+  }
+
+  // Alterar palavra-passe com sessão autenticada.
+  if (path === '/api/auth/update-password' && request.method === 'POST') {
+    const body = await readBody(request);
+    const password = body?.password;
+
+    if (typeof password !== 'string' || password.length < 8) {
+      return json({
+        success: false,
+        message: 'A palavra-passe deve ter pelo menos 8 caracteres.'
+      }, 400);
+    }
+
+    const cookies = readCookies(request);
+    const access_token = cookies[ACCESS_COOKIE];
+    const refresh_token = cookies[REFRESH_COOKIE];
+
+    if (!access_token || !refresh_token) {
+      return json({ success: false, message: 'Inicia sessão novamente.' }, 401);
+    }
+
+    const { data: sessionData, error: sessionError } =
+      await supabase.auth.setSession({ access_token, refresh_token });
+
+    if (sessionError || !sessionData.session) {
+      return json({ success: false, message: 'A sessão expirou. Inicia sessão novamente.' }, 401, clearCookies());
+    }
+
+    const { data, error } = await supabase.auth.updateUser({ password });
+
+    if (error) {
+      return json({
+        success: false,
+        message: 'Não foi possível atualizar a palavra-passe.'
+      }, 400);
+    }
+
+    return json({
+      success: true,
+      user: safeUser(data.user),
+      message: 'Palavra-passe atualizada com sucesso.'
+    }, 200, sessionCookies(sessionData.session));
   }
 
   if (path === '/api/auth/me' && request.method === 'GET') {

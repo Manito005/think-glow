@@ -223,9 +223,39 @@
           Criar conta
         </button>
       </form>
+
+      <div class="account-extra-actions">
+        <button id="forgotPasswordBtn" type="button" class="text-action">
+          Esqueci-me da palavra-passe
+        </button>
+        <button id="resendConfirmationBtn" type="button" class="text-action">
+          Reenviar confirmação de email
+        </button>
+        <button id="skipExploreBtn" type="button" class="explore-action">
+          Pular e explorar a loja
+        </button>
+      </div>
+
+      <form id="resetPasswordForm" hidden>
+        <label for="newPassword">Nova palavra-passe</label>
+        <input id="newPassword" type="password"
+          autocomplete="new-password" minlength="8" required>
+        <button class="primary-btn account-submit" type="submit">
+          Guardar nova palavra-passe
+        </button>
+      </form>
     </div>
 
     <div id="accountProfile" hidden>
+      <form id="changePasswordForm">
+        <label for="changePassword">Alterar palavra-passe</label>
+        <input id="changePassword" type="password"
+          autocomplete="new-password" minlength="8"
+          placeholder="Nova palavra-passe" required>
+        <button class="primary-btn account-submit" type="submit">
+          Atualizar palavra-passe
+        </button>
+      </form>
       <p>Conta autenticada:</p>
       <p id="accountUserEmail"></p>
       <button id="logoutBtn" class="primary-btn account-submit"
