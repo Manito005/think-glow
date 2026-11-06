@@ -215,7 +215,14 @@ $('closeCart').addEventListener('click', closeCart);
 $('closeCartBackdrop').addEventListener('click', closeCart);
 
 $('checkoutBtn').addEventListener('click', () => {
-  showToast('A finalização de encomendas será configurada na próxima etapa.');
+  if (!window.THINKGLOW || typeof window.THINKGLOW.requireAuth !== 'function') {
+    showToast('O sistema de conta ainda não está disponível. Atualiza a página.');
+    return;
+  }
+
+  window.THINKGLOW.requireAuth(() => {
+    showToast('Conta autenticada. A finalização de encomendas será configurada na próxima etapa.');
+  });
 });
 
 

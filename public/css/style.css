@@ -849,3 +849,60 @@ body.auth-required > :not(#accountModal) {
     animation: none !important;
   }
 }
+
+/* THINK GLOW: AÇÕES EXTRA DA CONTA */
+#accountModal.auth-gate .account-extra-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-top: 18px;
+}
+
+#accountModal.auth-gate .text-action {
+  padding: 9px 12px;
+  border: 0;
+  background: transparent;
+  color: #e7c77e;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color .2s, opacity .2s;
+}
+
+#accountModal.auth-gate .text-action:hover {
+  color: #fff2ce;
+}
+
+#accountModal.auth-gate .explore-action {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 18px;
+  border: 1px solid rgba(212, 175, 92, .4);
+  border-radius: 10px;
+  background: rgba(212, 175, 92, .08);
+  color: #f1d38e;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .25s, border-color .25s, transform .25s;
+}
+
+#accountModal.auth-gate .explore-action:hover {
+  background: rgba(212, 175, 92, .16);
+  border-color: #d8b15f;
+  transform: translateY(-1px);
+}
+
+#accountModal.auth-gate .text-action:focus-visible,
+#accountModal.auth-gate .explore-action:focus-visible {
+  outline: 2px solid #e7c77e;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #accountModal.auth-gate .text-action,
+  #accountModal.auth-gate .explore-action {
+    transition: none;
+  }
+}
